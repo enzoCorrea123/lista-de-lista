@@ -1,0 +1,9 @@
+{
+    "LIST":{
+        "LISTNAME": "LISTNAME"
+    },
+    "TOPIC": {
+        "TOPICNAME": "TOPICNAME",
+        "LISTID": "LISTID"
+    }
+}
