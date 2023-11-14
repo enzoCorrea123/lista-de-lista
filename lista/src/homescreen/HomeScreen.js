@@ -16,7 +16,7 @@ const HomeScreen = ({ navigation }) => {
         setLists(JSON.parse(storedLists));
       }
     } catch (e) {
-      console.error('Failed to load lists.', e);
+      alert('Erro ao carregar lista', e);
     }
   };
 
@@ -27,7 +27,6 @@ const HomeScreen = ({ navigation }) => {
     navigation.navigate("CreateList", {list})
   }
   const deleteList = async (id) => {
-    console.log("funciona")
     const updatedLists = lists.filter(list => list.id !== id);
     setLists(updatedLists);
     await AsyncStorage.setItem('LIST', JSON.stringify(updatedLists));
@@ -35,8 +34,16 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity
+      style={styles.createButton}
+        onPress={() => navigation.navigate('CreateList')}
+      >
+      <Text>Criar lista</Text>
+      </TouchableOpacity>
+
       <FlatList
         data={lists.sort((a, b) => new Date(b.created) - new Date(a.created))}
+        
         keyExtractor={item => item.id.toString()}
 
         renderItem={({ item }) => (
@@ -65,36 +72,48 @@ const HomeScreen = ({ navigation }) => {
           </View>
         )}
       />
-      <Button
-        title="Criar Lista"
-        onPress={() => navigation.navigate('CreateList')}
-      />
+      
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+  },
     components: {
-        flex: 1,
-        flexDirection: 'row',
-        gap: 10,
-        borderColor: 'black',
-        borderStyle: 'solid',
-        borderWidth: 1,
-        width: 300,
-        padding: 30,
-        borderRadius: 10,
+      backgroundColor: '#fff',
+      padding: 20,
+      marginVertical: 8,
+      borderRadius: 5,
 
     }, 
-    button: {
-        width: 100,
-        height: 25,
-        margin: 10,
-        backgroundColor: "#41B3FF",
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 10,
+    listTitle:{
+      fontSize: 18,
     },
+    listDate:{
+      fontSize: 14,
+      color: 'gray',
+    },
+    buttonsContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      marginTop: 10,
+    },
+    button: {
+      padding: 10,
+      backgroundColor: '#ddd',
+      borderRadius: 5,
+    },
+    createButton:{
+      height: 50,
+      margin: 10,
+      backgroundColor: "#41B3FF",
+      alignItems: "center",
+      justifyContent: "center",
+      borderRadius: 10
+    }
 });
 
 export default HomeScreen;

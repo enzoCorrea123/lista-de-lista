@@ -17,7 +17,7 @@ const CreateListScreen = ({ navigation, route }) => {
 
   const handleSave = async () => {
     if (!listName.trim()) {
-      Alert.alert('Erro', 'Por favor, insira um nome para a lista.');
+        alert('Erro', 'Por favor, insira um nome para a lista.');
       return;
     }
 
@@ -35,7 +35,7 @@ const CreateListScreen = ({ navigation, route }) => {
       await AsyncStorage.setItem('LIST', JSON.stringify(lists));
       navigation.goBack();
     } catch (e) {
-      console.error('Failed to save the list.', e);
+      alert('Erro ao salvar a lista.', e);
     }
   };
 

@@ -18,7 +18,7 @@ const TopicScreen = ({ navigation, route }) => {
 
   const handleSave = async () => {
     if (!topicName.trim()) {
-      Alert.alert('Erro', 'Por favor, insira um nome para o tópico.');
+      alert('Por favor, insira um nome para o tópico.');
       return;
     }
 
@@ -33,7 +33,7 @@ const TopicScreen = ({ navigation, route }) => {
         };
   
         if (isEdit) {
-          topics = topics.map(t => t.id === topicId ? newTopic : t);
+          topics = topics.map(t => t.id === topicId ? newTopic : t);//map com ternário
         } else {
           topics.push(newTopic);
         }
@@ -41,7 +41,7 @@ const TopicScreen = ({ navigation, route }) => {
         await AsyncStorage.setItem(`topics_${listId}`, JSON.stringify(topics));
         navigation.goBack();
       } catch (e) {
-        console.error('Failed to save the topic.', e);
+        alert('Erro ao salvar tópico', e);
       }
     
   };
