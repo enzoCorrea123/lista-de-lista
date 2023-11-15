@@ -31,7 +31,6 @@ const HomeScreen = ({ navigation }) => {
     setLists(updatedLists);
     await AsyncStorage.setItem('LIST', JSON.stringify(updatedLists));
   };
-
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -42,14 +41,20 @@ const HomeScreen = ({ navigation }) => {
       </TouchableOpacity>
 
       <FlatList
-        data={lists.sort((a, b) => new Date(b.created) - new Date(a.created))}
+        data={lists.sort((a, b) => {
+          if(b.created >= a.created){
+            return 1;
+          }else{
+            return -1
+          }
+        })}
         
         keyExtractor={item => item.id.toString()}
 
         renderItem={({ item }) => (
           <View style={styles.components}>
             <Text style={styles.listTitle} onPress={() => navigateToTopics(item.id)}>{item.LISTNAME}</Text>
-
+            {console.log(item)}
             <Text style={styles.listDate}>Criado em: {item.created}</Text>
             
             <View style={styles.buttonsContainer}>

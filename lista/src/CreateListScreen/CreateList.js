@@ -26,9 +26,9 @@ const CreateListScreen = ({ navigation, route }) => {
       let lists = storedLists ? JSON.parse(storedLists) : [];
 
       if (isEdit) {
-        lists = lists.map(list => list.id === listId ? { ...list, LISTNAME: listName } : list);
+        lists = lists.map(list => list.id === listId ? { ...list, LISTNAME: listName, created: new Date().toLocaleString()} : list);
       } else {
-        const newList = { id: Date.now(), LISTNAME: listName, created: new Date().toISOString() };
+        const newList = { id: Date.now(), LISTNAME: listName, created: new Date().toLocaleString()};
         lists.push(newList);
       }
 

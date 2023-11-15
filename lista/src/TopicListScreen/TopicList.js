@@ -18,7 +18,7 @@ const TopicsListScreen = ({ navigation, route }) => {
         setTopics(JSON.parse(storedTopics));
       }
     } catch (e) {
-      console.error('Failed to load topics.', e);
+      console.error('erro ao carregar tópicos.', e);
     }
   };
 
