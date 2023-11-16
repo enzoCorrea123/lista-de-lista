@@ -86,12 +86,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor: "#eee"
   },
     components: {
       backgroundColor: '#fff',
       padding: 20,
       marginVertical: 8,
-      borderRadius: 5,
+      borderRadius: 10,
 
     }, 
     listTitle:{

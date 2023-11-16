@@ -10,7 +10,7 @@ const TopicScreen = ({ navigation, route }) => {
 
   useEffect(() => {
     if (route.params?.topic) {
-      setTopicName(route.params.topic.name);
+      setTopicName(route.params.topic.TOPICNAME);
       setTopicId(route.params.topic.id);
       setIsEdit(true);
     }
@@ -26,15 +26,11 @@ const TopicScreen = ({ navigation, route }) => {
         const storedTopics = await AsyncStorage.getItem(`topics_${listId}`);
         let topics = storedTopics ? JSON.parse(storedTopics) : [];
   
-        const newTopic = {
-          id: Date.now(),
-          TOPICNAME: topicName, // Usando a chave TOPICNAME conforme definido no JSON
-          LISTID: listId       // Associando o tópico à lista
-        };
-  
         if (isEdit) {
-          topics = topics.map(t => t.id === topicId ? newTopic : t);//map com ternário
+          topics = topics.map(item => item.id === topicId ? { ...item, TOPICNAME: topicName, created: new Date().toLocaleString()} : item);
+
         } else {
+          const newTopic = { id: Date.now(), TOPICNAME: topicName, created: new Date().toLocaleString()};
           topics.push(newTopic);
         }
   

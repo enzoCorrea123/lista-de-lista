@@ -6,6 +6,7 @@ const TopicsListScreen = ({ navigation, route }) => {
   const [topics, setTopics] = useState([]);
   const listId = route.params?.listId;
   const focus = useIsFocused();
+
   useEffect(() => {
     loadTopics();
   }, [focus]);
@@ -36,13 +37,19 @@ const TopicsListScreen = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={topics}
-        keyExtractor={item => item.id.toString()}
+        data={topics.sort((a, b) => {
+          if(b.created >= a.created){
+            return 1;
+          }else{
+            return -1
+          }
+        })}
+        keyExtractor={item => item?.id?.toString() ?? 'default-key'}
 
         renderItem={({ item }) => (
           <View style={styles.topicItem}>
             <Text style={styles.topicName}>{item.TOPICNAME}</Text>
-            <Text style={styles.topicDate}>Criado em: {new Date(item.created).toLocaleDateString()}</Text>
+            <Text style={styles.topicDate}>Criado em: {item.created}</Text>
 
             <View style={styles.buttonsContainer}>
               <TouchableOpacity style={styles.button} onPress={() => navigateToEditTopic(item)}>
